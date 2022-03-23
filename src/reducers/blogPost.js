@@ -1,7 +1,7 @@
-import {BLOG_POST_LIST_ERROR, BLOG_POST_FETCH, BLOG_POST_LIST_RECEIVED} from "../actions/const";
+import {BLOG_POST_ERROR, BLOG_POST_FETCH, BLOG_POST_RECEIVED} from "../actions/const";
 
 export default (state = {
-    posts: null,
+    post: null,
     isFetching: false,
 }, action ) => {
     switch (action.type) {
@@ -10,16 +10,16 @@ export default (state = {
                 ...state,
                 isFetching: true,
             };
-        case BLOG_POST_LIST_RECEIVED:
+        case BLOG_POST_RECEIVED:
             return {
                 ...state,
-                posts: action.data["hydra:member"],
+                post: action.data,
                 isFetching: false,
             };
-        case BLOG_POST_LIST_ERROR:
+        case BLOG_POST_ERROR:
             return{
                 isFetching: false,
-                posts: null,
+                post: null,
             };
         default:
             return {
