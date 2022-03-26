@@ -1,5 +1,12 @@
 import {requests} from "../agent";
-import {BLOG_POST_LIST_ERROR, BLOG_POST_FETCH, BLOG_POST_LIST_RECEIVED, BLOG_POST_RECEIVED} from "./const";
+import {
+    BLOG_POST_LIST_ERROR,
+    BLOG_POST_FETCH,
+    BLOG_POST_LIST_RECEIVED,
+    BLOG_POST_RECEIVED,
+    BLOG_POST_UNLOAD
+} from "./const";
+import {dataKey} from "redux-form/lib/util/eventConsts";
 
 export const blogPostFetching = () => ({
     type: BLOG_POST_FETCH,
@@ -13,6 +20,10 @@ export const blogPostListReceived = (data) => ({
 export const blogPostReceived = (data) => ({
     type: BLOG_POST_RECEIVED,
     data,
+});
+
+export const blogPostUnload = () => ({
+    type: BLOG_POST_UNLOAD,
 });
 
 export const blogPostError = (error) => ({

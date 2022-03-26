@@ -1,5 +1,5 @@
 import React from "react";
-import {blogPostFetch} from "../actions/actions";
+import {blogPostFetch, blogPostUnload} from "../actions/actions";
 import {connect} from "react-redux";
 import BlogPost from "./BlogPost";
 
@@ -9,12 +9,17 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     blogPostFetch,
+    blogPostUnload,
 };
 
 class BlogPostContainer extends React.Component {
     componentDidMount() {
         const id = this.props?.match?.params?.id || null;
         this.props.blogPostFetch(id);
+    }
+
+    componentWillUnmount() {
+        this.props.blogPostUnload();
     }
 
     render() {
