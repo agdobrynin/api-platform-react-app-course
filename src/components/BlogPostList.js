@@ -1,15 +1,14 @@
 import React from "react";
 import timeAgo from "timeago.js"
 import {Link} from "react-router-dom";
+import {Loader} from "./Loader";
 
 export default class BlogPostList extends React.Component {
     render() {
         const {posts, isFetching} = this.props;
 
         if (isFetching) {
-            return (
-                <div><i className="fas fa-spinner fa-spin"></i> Loading data</div>
-            );
+            return (<Loader/>);
         }
 
         if (posts === null || posts?.length === 0) {
