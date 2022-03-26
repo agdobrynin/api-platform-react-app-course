@@ -2,6 +2,7 @@ import React from "react";
 import {blogPostFetch, blogPostUnload} from "../actions/actions";
 import {connect} from "react-redux";
 import BlogPost from "./BlogPost";
+import {Loader} from "./Loader";
 
 const mapStateToProps = state => ({
     ...state.blogPost
@@ -25,8 +26,12 @@ class BlogPostContainer extends React.Component {
     render() {
         const {post, isFetching} = this.props;
 
+        if (isFetching) {
+            return (<Loader/>);
+        }
+
         return (
-            <BlogPost post={post} isFetching={isFetching}/>
+            <BlogPost post={post}/>
         );
     }
 }

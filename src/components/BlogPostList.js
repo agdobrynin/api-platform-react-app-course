@@ -1,19 +1,15 @@
 import React from "react";
 import timeAgo from "timeago.js"
 import {Link} from "react-router-dom";
-import {Loader} from "./Loader";
+import {Message} from "./Message";
 
 export default class BlogPostList extends React.Component {
     render() {
-        const {posts, isFetching} = this.props;
-
-        if (isFetching) {
-            return (<Loader/>);
-        }
+        const {posts} = this.props;
 
         if (posts === null || posts?.length === 0) {
             return (
-                <div>Blog is empty</div>
+                <Message message="Blog is empty" messageType="alert-warning"/>
             );
         }
 
