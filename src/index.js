@@ -8,8 +8,12 @@ import {Route, Switch} from "react-router";
 import App from "./components/App";
 import reducer from "./reducer";
 import middleware from "redux-thunk"
+import {tokenMiddleware} from "./middleware";
 
-const store = createStore(reducer, applyMiddleware(middleware));
+const store = createStore(
+    reducer,
+    applyMiddleware(middleware, tokenMiddleware)
+);
 const history = createBrowserHistory();
 
 ReactDOM.render((

@@ -8,7 +8,8 @@ import {
     COMMENTS_RECEIVED,
     COMMENTS_UNLOAD,
     COMMENTS_ERROR,
-    COMMENTS_FETCHING
+    COMMENTS_FETCHING,
+    USER_LOGIN_SUCCESS
 } from "./const";
 
 
@@ -65,6 +66,20 @@ export const commentsFetch = (postId, page = 1) => {
         return requests.get(`/blog_posts/${postId}/comments?_page=${page}`)
             .then(response => dispatch(commentsReceived(response)))
             .catch(error => dispatch(commentsError(error)));
+    }
+};
+
+export const userLoginSuccess = (token, userId) => {
+    return {
+        type: USER_LOGIN_SUCCESS, token, userId,
+    }
+};
+
+export const userLoginAssign = (username, password) => {
+    return (dispatch) => {
+        return requests.post('/login_check', {username, password}, false)
+            .then(response => dispatch(userLoginSuccess(response.token, response.id)))
+            .catch(error => error);
     }
 };
 
