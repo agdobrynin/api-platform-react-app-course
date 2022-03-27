@@ -4,22 +4,24 @@ import {
     BLOG_POST_FETCH,
     BLOG_POST_LIST_RECEIVED,
     BLOG_POST_RECEIVED,
-    BLOG_POST_UNLOAD
+    BLOG_POST_UNLOAD,
+    COMMENTS_RECEIVED,
+    COMMENTS_UNLOAD,
+    COMMENTS_ERROR,
+    COMMENTS_FETCHING
 } from "./const";
-import {dataKey} from "redux-form/lib/util/eventConsts";
+
 
 export const blogPostFetching = () => ({
     type: BLOG_POST_FETCH,
 });
 
 export const blogPostListReceived = (data) => ({
-    type: BLOG_POST_LIST_RECEIVED,
-    data,
+    type: BLOG_POST_LIST_RECEIVED, data,
 });
 
 export const blogPostReceived = (data) => ({
-    type: BLOG_POST_RECEIVED,
-    data,
+    type: BLOG_POST_RECEIVED, data,
 });
 
 export const blogPostUnload = () => ({
@@ -27,8 +29,7 @@ export const blogPostUnload = () => ({
 });
 
 export const blogPostError = (error) => ({
-    type: BLOG_POST_LIST_ERROR,
-    error,
+    type: BLOG_POST_LIST_ERROR, error,
 });
 
 export const blogPostListFetch = () => {
@@ -38,6 +39,32 @@ export const blogPostListFetch = () => {
         return requests.get("/blog_posts")
             .then(response => dispatch(blogPostListReceived(response)))
             .catch(error => dispatch(blogPostError(error)));
+    }
+};
+
+export const commentsFetching = () => ({
+    type: COMMENTS_FETCHING,
+});
+
+export const commentsReceived = (data) => ({
+    type: COMMENTS_RECEIVED, data,
+});
+
+export const commentsUnload = () => ({
+    type: COMMENTS_UNLOAD,
+});
+
+export const commentsError = (error) => ({
+    type: COMMENTS_ERROR, error,
+});
+
+export const commentsFetch = (postId, page = 1) => {
+    return (dispatch) => {
+        dispatch(commentsFetching());
+
+        return requests.get(`/blog_posts/${postId}/comments?_page=${page}`)
+            .then(response => dispatch(commentsReceived(response)))
+            .catch(error => dispatch(commentsError(error)));
     }
 };
 
