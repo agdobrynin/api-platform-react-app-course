@@ -11,6 +11,7 @@ import {
     COMMENTS_FETCHING,
     USER_LOGIN_SUCCESS
 } from "./const";
+import {SubmissionError} from "redux-form";
 
 
 export const blogPostFetching = () => ({
@@ -79,7 +80,10 @@ export const userLoginAssign = (username, password) => {
     return (dispatch) => {
         return requests.post('/login_check', {username, password}, false)
             .then(response => dispatch(userLoginSuccess(response.token, response.id)))
-            .catch(error => error);
+            .catch(error => {
+                const { code, message = error.message } = error.response?.body;
+                throw new SubmissionError({_error: message})
+            });
     }
 };
 

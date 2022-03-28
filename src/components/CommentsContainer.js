@@ -17,7 +17,6 @@ const mapDispatchToProps = {
 class CommentsContainer extends React.Component {
     componentDidMount() {
         const {postId, page = 1} = this.props;
-        console.log(postId);
         this.props.commentsFetch(postId, page);
     }
 

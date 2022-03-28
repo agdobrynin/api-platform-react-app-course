@@ -4,8 +4,18 @@ import LoginForm from "./LoginForm";
 import BlogPostListContainer from "./BlogPostListContainer";
 import Header from "./Header";
 import BlogPostContainer from "./BlogPostContainer";
+import {storage} from "../storage";
+import {requests} from "../agent";
 
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        const token = storage.getToken();
+
+        if (token) {
+            requests.setToken(token);
+        }
+    }
     render() {
         return (
             <div>
