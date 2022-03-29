@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        const {handleSubmit, error} = this.props;
+        const {handleSubmit, error, isFetching} = this.props;
 
         return (
             <div className="text-center">
@@ -33,7 +33,9 @@ class LoginForm extends React.Component {
                 <form className="mt-4" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field label="Username" name="username" type="text"  component={renderField}/>
                     <Field label="Password" name="password" type="password" component={renderField}/>
-                    <button type="submit" className="btn btn-primary btn-block">Log in</button>
+                    <button type="submit" className="btn btn-primary btn-block" disabled={isFetching}>
+                        {isFetching ? "Loading data. Please wait" : "Log in"}
+                    </button>
                 </form>
             </div>
         );

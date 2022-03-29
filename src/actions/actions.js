@@ -9,7 +9,12 @@ import {
     COMMENTS_UNLOAD,
     COMMENTS_ERROR,
     COMMENTS_FETCHING,
-    USER_LOGIN_SUCCESS
+    USER_LOGIN_SUCCESS,
+    USER_PROFILE_ERROR,
+    USER_PROFILE_FETCHING,
+    USER_PROFILE_RECEIVED,
+    USER_LOGIN_FETCHING,
+    USER_LOGIN_ERROR,
 } from "./const";
 import {SubmissionError} from "redux-form";
 
@@ -19,11 +24,13 @@ export const blogPostFetching = () => ({
 });
 
 export const blogPostListReceived = (data) => ({
-    type: BLOG_POST_LIST_RECEIVED, data,
+    type: BLOG_POST_LIST_RECEIVED,
+    data,
 });
 
 export const blogPostReceived = (data) => ({
-    type: BLOG_POST_RECEIVED, data,
+    type: BLOG_POST_RECEIVED,
+    data,
 });
 
 export const blogPostUnload = () => ({
@@ -31,7 +38,8 @@ export const blogPostUnload = () => ({
 });
 
 export const blogPostError = (error) => ({
-    type: BLOG_POST_LIST_ERROR, error,
+    type: BLOG_POST_LIST_ERROR,
+    error,
 });
 
 export const blogPostListFetch = () => {
@@ -49,7 +57,8 @@ export const commentsFetching = () => ({
 });
 
 export const commentsReceived = (data) => ({
-    type: COMMENTS_RECEIVED, data,
+    type: COMMENTS_RECEIVED,
+    data,
 });
 
 export const commentsUnload = () => ({
@@ -57,7 +66,8 @@ export const commentsUnload = () => ({
 });
 
 export const commentsError = (error) => ({
-    type: COMMENTS_ERROR, error,
+    type: COMMENTS_ERROR,
+    error,
 });
 
 export const commentsFetch = (postId, page = 1) => {
@@ -72,18 +82,67 @@ export const commentsFetch = (postId, page = 1) => {
 
 export const userLoginSuccess = (token, userId) => {
     return {
-        type: USER_LOGIN_SUCCESS, token, userId,
+        type: USER_LOGIN_SUCCESS,
+        token,
+        userId,
     }
 };
 
+export const userLoginFetching = () => {
+    return {
+        type: USER_LOGIN_FETCHING,
+    }
+};
+
+export const userLoginError = () => {
+    return {
+        type: USER_LOGIN_ERROR,
+    }
+};
+
+
 export const userLoginAssign = (username, password) => {
     return (dispatch) => {
+        dispatch(userLoginFetching());
+
         return requests.post('/login_check', {username, password}, false)
             .then(response => dispatch(userLoginSuccess(response.token, response.id)))
             .catch(error => {
-                const { code, message = error.message } = error.response?.body;
-                throw new SubmissionError({_error: message})
+                dispatch(userLoginError());
+                const { code, message = error.message } = error.response?.body || { code: 0, message: error.message };
+                const _error = `${code}: ${message}`;
+                throw new SubmissionError({ _error })
             });
+    }
+};
+
+export const userProfileError = () => {
+    return {
+        type: USER_PROFILE_ERROR
+    }
+};
+
+export const userProfileFetching = () => {
+    return {
+        type: USER_PROFILE_FETCHING
+    }
+};
+
+export const userProfileReceived = (userId, data) => {
+    return {
+        type: USER_PROFILE_RECEIVED,
+        data,
+        userId,
+    }
+};
+
+export const userProfileFetch = (userId) => {
+    return (dispatch) => {
+        dispatch(userProfileFetching);
+
+        return requests.get(`/users/${userId}`, true)
+            .then(response => dispatch(userProfileReceived(userId, response)))
+            .catch(error => dispatch(userProfileError()));
     }
 };
 
