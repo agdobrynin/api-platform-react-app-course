@@ -15,6 +15,7 @@ import {
     USER_PROFILE_RECEIVED,
     USER_LOGIN_FETCHING,
     USER_LOGIN_ERROR,
+    USER_SET_ID,
 } from "./const";
 import {SubmissionError} from "redux-form";
 
@@ -132,6 +133,13 @@ export const userProfileReceived = (userId, data) => {
     return {
         type: USER_PROFILE_RECEIVED,
         data,
+        userId,
+    }
+};
+
+export const userSetId = (userId) => {
+    return {
+        type: USER_SET_ID,
         userId,
     }
 };

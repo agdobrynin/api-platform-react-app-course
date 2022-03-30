@@ -7,14 +7,15 @@ import BlogPostContainer from "./BlogPostContainer";
 import {storage} from "../storage";
 import {requests} from "../agent";
 import {connect} from "react-redux";
-import {userProfileFetch} from "../actions/actions";
+import {userProfileFetch, userSetId} from "../actions/actions";
 
 const mapStateToProps = state => ({
     ...state.auth,
 });
 
 const mapDispatchToProps = {
-    userProfileFetch
+    userProfileFetch,
+    userSetId,
 }
 
 class App extends React.Component {
@@ -28,24 +29,26 @@ class App extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { userId, userProfileFetch } = this.props;
+        const { userId, userSetId, userProfile } = this.props;
 
-        if (prevProps.userId !== userId && userId !== null) {
-            userProfileFetch(userId);
+        if (userProfile !== null) {
+            userSetId(userId);
         }
     }
 
     componentDidMount() {
         const userId = storage.getUserId();
-        const {userProfileFetch} = this.props;
+        const {userProfileFetch, userSetId} = this.props;
 
         if (userId) {
+            userSetId(userId);
             userProfileFetch(userId);
         }
     }
 
     render() {
         const { isAuth, userProfile } = this.props;
+
         return (
             <div>
                 <Header isAuth={isAuth} userProfile={userProfile}/>

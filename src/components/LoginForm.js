@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {renderField} from "../form";
-import {userLoginAssign} from "../actions/actions";
+import {userLoginAssign, userProfileFetch} from "../actions/actions";
 import {connect} from "react-redux";
 import {Message} from "./Message";
 
@@ -10,13 +10,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    userLoginAssign,
+    userLoginAssign, userProfileFetch
 }
 
 class LoginForm extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.token !== this.props.token) {
-            this.props.history.push("/");
+        const { token, userId, userProfileFetch, history } = this.props;
+
+        if(prevProps.token !== token) {
+            userProfileFetch(userId);
+            history.push("/");
         }
     }
 
@@ -25,7 +28,7 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        const {handleSubmit, error, isFetching} = this.props;
+        const {handleSubmit, error, isUserFetch} = this.props;
 
         return (
             <div className="text-center">
@@ -33,8 +36,8 @@ class LoginForm extends React.Component {
                 <form className="mt-4" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field label="Username" name="username" type="text"  component={renderField}/>
                     <Field label="Password" name="password" type="password" component={renderField}/>
-                    <button type="submit" className="btn btn-primary btn-block" disabled={isFetching}>
-                        {isFetching ? "Loading data. Please wait" : "Log in"}
+                    <button type="submit" className="btn btn-primary btn-block" disabled={isUserFetch}>
+                        {isUserFetch ? "Loading data. Please wait" : "Log in"}
                     </button>
                 </form>
             </div>
