@@ -29,9 +29,6 @@ export default (state = {
                 post: null,
             };
         default:
-            return {
-                ...state,
-                isFetching: false,
-            };
+             return state;
     }
 };

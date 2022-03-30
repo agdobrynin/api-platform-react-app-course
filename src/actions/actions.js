@@ -146,7 +146,7 @@ export const userSetId = (userId) => {
 
 export const userProfileFetch = (userId) => {
     return (dispatch) => {
-        dispatch(userProfileFetching);
+        dispatch(userProfileFetching());
 
         return requests.get(`/users/${userId}`, true)
             .then(response => dispatch(userProfileReceived(userId, response)))

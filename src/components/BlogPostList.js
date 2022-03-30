@@ -19,8 +19,9 @@ export default class BlogPostList extends React.Component {
                     <h3>
                         <Link to={`/blog-post/${post.id}`}>{post.title}</Link>
                     </h3>
-                    <small className="text-muted">{timeAgo().format(post.createdAt)}</small>
-                    <p className="card-text border-bottom">{post.content}</p>
+                    <small className="text-muted pb-3">{timeAgo().format(post.createdAt)} by {post.author.name}</small>
+                    <p className="card-text border-bottom pb-3">{post.content}</p>
+                    <div className="text-muted font-weight-light">Has <strong>{post.comments.length}</strong> comments</div>
                 </div>)
             )}
         </div>);
