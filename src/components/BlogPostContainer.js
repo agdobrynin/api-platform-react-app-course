@@ -4,9 +4,11 @@ import {connect} from "react-redux";
 import BlogPost from "./BlogPost";
 import {Loader} from "./Loader";
 import CommentsContainer from "./CommentsContainer";
+import CommentForm from "./CommentForm";
 
 const mapStateToProps = state => ({
-    ...state.blogPost
+    ...state.blogPost,
+    isAuth: state.auth.isAuth,
 });
 
 const mapDispatchToProps = {
@@ -25,7 +27,7 @@ class BlogPostContainer extends React.Component {
     }
 
     render() {
-        const {post, isFetching, match: { params: {id} }} = this.props;
+        const {post, isFetching, match: { params: {id} }, isAuth} = this.props;
 
         if (isFetching) {
             return (<Loader/>);
@@ -35,6 +37,7 @@ class BlogPostContainer extends React.Component {
             <div>
                 <BlogPost post={post}/>
                 {post && <CommentsContainer postId={id}/>}
+                {isAuth && <CommentForm postId={id}/>}
             </div>
         );
     }

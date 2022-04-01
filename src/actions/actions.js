@@ -18,6 +18,7 @@ import {
     USER_SET_ID,
 } from "./const";
 import {SubmissionError} from "redux-form";
+import {apiError} from "../helpers";
 
 
 export const blogPostFetching = () => ({
@@ -110,9 +111,9 @@ export const userLoginAssign = (username, password) => {
             .then(response => dispatch(userLoginSuccess(response.token, response.id)))
             .catch(error => {
                 dispatch(userLoginError());
-                const { code, message = error.message } = error.response?.body || { code: 0, message: error.message };
+                const {code, message = error.message} = error.response?.body || {code: 0, message: error.message};
                 const _error = `${code}: ${message}`;
-                throw new SubmissionError({ _error })
+                throw new SubmissionError({_error})
             });
     }
 };
@@ -162,4 +163,13 @@ export const blogPostFetch = (id) => {
             .then(response => dispatch(blogPostReceived(response)))
             .catch(error => dispatch(blogPostError(error)));
     }
+};
+
+export const addComment = (content, blogPostId) => {
+    return requests.post('/comments', {content, post: `/api/blog_posts/${blogPostId}`})
+        .then(response => response)
+        .catch(error => {
+            const _error = apiError(error);
+            throw new SubmissionError({content: _error})
+        });
 };
