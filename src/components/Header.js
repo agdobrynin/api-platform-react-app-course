@@ -29,7 +29,7 @@ export default class Header extends React.Component {
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to="/" className="navbar-brand">React blog</Link>
                 <ul className="navbar-nav mr-auto"></ul>
-                <span class="navbar-text">
+                <span className="navbar-text">
                     {isAuth
                         ? this.renderUser()
                         : <Link to="/login">Sign in</Link>}
