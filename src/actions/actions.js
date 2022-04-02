@@ -158,7 +158,7 @@ export const userProfileFetch = (userId) => {
 
         return requests.get(`/users/${userId}`, true)
             .then(response => dispatch(userProfileReceived(userId, response)))
-            .catch(error => dispatch(userProfileError()));
+            .catch(() => dispatch(userProfileError()));
     }
 };
 
@@ -173,11 +173,11 @@ export const blogPostFetch = (id) => {
 };
 
 export const addComment = (content, blogPostId) => {
-    return (dispatch) => {
+    return () => {
         return requests.post('/comments', {content, post: `/api/blog_posts/${blogPostId}`})
             .then(response => response)
             .catch(error => {
-                throw new SubmissionError(apiError(error))
+                throw new SubmissionError(apiError(error.response))
             });
     }
 };

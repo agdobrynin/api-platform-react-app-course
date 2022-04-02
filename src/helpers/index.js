@@ -1,5 +1,5 @@
-export const apiError = (error) =>  {
-    const violation = error?.response?.body?.violations || [];
+export const apiError = (errorResponse) =>  {
+    const violation = errorResponse?.body?.violations || [];
 
     return violation.reduce(
         (parsedErrors, violation) => {
