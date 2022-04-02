@@ -177,8 +177,7 @@ export const addComment = (content, blogPostId) => {
         return requests.post('/comments', {content, post: `/api/blog_posts/${blogPostId}`})
             .then(response => response)
             .catch(error => {
-                const _error = apiError(error);
-                throw new SubmissionError({content: _error})
+                throw new SubmissionError(apiError(error))
             });
     }
 };
