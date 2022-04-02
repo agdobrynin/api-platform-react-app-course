@@ -1,4 +1,4 @@
-import {USER_LOGIN_SUCCESS} from "./actions/const";
+import {USER_LOGIN_SUCCESS, USER_LOGOUT} from "./actions/const";
 import {requests} from "./agent";
 import {storage} from "./storage";
 
@@ -8,6 +8,9 @@ export const tokenMiddleware = store => next => action => {
             storage.setToken(action.token);
             storage.setUserId(action.userId);
             requests.setToken(action.token);
+            break;
+        case USER_LOGOUT:
+            storage.clearAuth();
             break;
         default:
     }

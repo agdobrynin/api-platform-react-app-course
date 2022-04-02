@@ -6,4 +6,5 @@ export const storage = {
     getToken: () =>  window.localStorage.getItem(jwtKey),
     setUserId: (userId) => window.localStorage.setItem(userKey, userId),
     getUserId: () => window.localStorage.getItem(userKey),
+    clearAuth: () => { window.localStorage.removeItem(jwtKey); window.localStorage.removeItem(userKey); }
 };
