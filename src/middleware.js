@@ -11,6 +11,7 @@ export const tokenMiddleware = store => next => action => {
             break;
         case USER_LOGOUT:
             storage.clearAuth();
+            requests.setToken(null);
             break;
         default:
     }
