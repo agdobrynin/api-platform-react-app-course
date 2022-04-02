@@ -2,6 +2,7 @@ import {
     USER_LOGIN_ERROR,
     USER_LOGIN_FETCHING,
     USER_LOGIN_SUCCESS,
+    USER_LOGOUT,
     USER_PROFILE_RECEIVED,
     USER_SET_ID,
 } from "../actions/const";
@@ -14,6 +15,13 @@ export default (state = {
     isUserFetch: false,
 }, action ) => {
     switch (action.type) {
+        case USER_LOGOUT:
+            return {
+                ...state,
+                userId: null,
+                isAuth: false,
+                userProfile: null,
+            };
         case USER_SET_ID:
             return {
                 ...state,

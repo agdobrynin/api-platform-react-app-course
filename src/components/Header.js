@@ -4,13 +4,22 @@ import {Loader} from "./Loader";
 
 export default class Header extends React.Component {
     renderUser() {
-        const { userProfile } = this.props;
+        const { userProfile, userLogout } = this.props;
 
         if (null === userProfile) {
             return (<Loader />);
         }
 
-        return (<span className="navbar-text">Hello <b>{userProfile.name}</b></span>);
+        return (
+            <div className="container">
+                <div className="row align-items-center">
+                    <div className="col-auto mr-auto">Hello <b>{userProfile.name}</b></div>
+                    <div className="col-auto">
+                        <button className="btn btn-outline-success" type="button" onClick={userLogout}>Logout</button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     render() {
@@ -19,9 +28,12 @@ export default class Header extends React.Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to="/" className="navbar-brand">React blog</Link>
-                {isAuth
-                    ? this.renderUser()
-                    : <span className="navbar-text"><Link to="/login">Sign in</Link></span>}
+                <ul className="navbar-nav mr-auto"></ul>
+                <span class="navbar-text">
+                    {isAuth
+                        ? this.renderUser()
+                        : <Link to="/login">Sign in</Link>}
+                </span>
             </nav>
         );
     }

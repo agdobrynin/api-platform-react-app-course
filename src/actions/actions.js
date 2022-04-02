@@ -16,6 +16,7 @@ import {
     USER_LOGIN_FETCHING,
     USER_LOGIN_ERROR,
     USER_SET_ID,
+    USER_LOGOUT,
 } from "./const";
 import {SubmissionError} from "redux-form";
 import {apiError} from "../helpers";
@@ -89,6 +90,12 @@ export const userLoginSuccess = (token, userId) => {
         userId,
     }
 };
+
+export const userLogout = () => {
+    return {
+        type: USER_LOGOUT,
+    }
+}
 
 export const userLoginFetching = () => {
     return {
