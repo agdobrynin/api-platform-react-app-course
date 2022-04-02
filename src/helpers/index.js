@@ -11,11 +11,13 @@ export const apiError = (errorResponse) =>  {
 };
 
 export const hydraPageCount = (collection) => {
-    if (!collection["hydra:view"]) {
+    const key = "hydra:view";
+
+    if (!collection[key]) {
         return 1;
     }
 
     return Number(
-        collection["hydra:view"]["hydra:last"].match(/page=(\d+)/)[1]
+        collection[key]["hydra:last"].match(/page=(\d+)/)[1]
     );
 };

@@ -8,7 +8,7 @@ import {hydraPageCount} from "../helpers";
 
 export default (state = {
     posts: null,
-    isFetching: false,
+    isFetching: null,
     currentPage: null,
     pageCount: null,
 }, action ) => {

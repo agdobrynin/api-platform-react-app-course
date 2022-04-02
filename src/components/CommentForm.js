@@ -29,7 +29,7 @@ class CommentForm extends React.Component {
         const {handleSubmit} = this.props;
 
         return (
-            <fieldset className="card shadow-sm" disabled={this.isLoading}>
+            <fieldset className="card shadow-sm mb-4" disabled={this.isLoading}>
                 <form className="card-body" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field
                         disabled={this.isLoading}

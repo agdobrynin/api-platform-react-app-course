@@ -19,6 +19,7 @@ import {
     USER_LOGOUT,
     COMMENT_NEW_SUCCESS,
     BLOG_POST_LIST_SET_PAGE,
+    COMMENTS_SET_PAGE,
 } from "./const";
 import {SubmissionError} from "redux-form";
 import {apiError} from "../helpers";
@@ -28,10 +29,9 @@ export const blogPostFetching = () => ({
     type: BLOG_POST_FETCH,
 });
 
-export const blogPostListReceived = (data, page) => ({
+export const blogPostListReceived = (data) => ({
     type: BLOG_POST_LIST_RECEIVED,
     data,
-    page,
 });
 
 export const blogPostListSetPage = (page) => ({
@@ -79,6 +79,11 @@ export const commentsUnload = () => ({
 export const commentsError = (error) => ({
     type: COMMENTS_ERROR,
     error,
+});
+
+export const commentsSetPage = (page) => ({
+    type: COMMENTS_SET_PAGE,
+    page,
 });
 
 export const commentsFetch = (postId, page = 1) => {
