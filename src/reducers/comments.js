@@ -1,10 +1,23 @@
-import {COMMENTS_ERROR, COMMENTS_FETCHING, COMMENTS_RECEIVED, COMMENTS_UNLOAD} from "../actions/const";
+import {
+    COMMENT_NEW_SUCCESS,
+    COMMENTS_ERROR,
+    COMMENTS_FETCHING,
+    COMMENTS_RECEIVED,
+    COMMENTS_UNLOAD
+} from "../actions/const";
 
 export default (state = {
     comments: null,
     isFetching: false,
 }, action) => {
     switch (action.type) {
+        case COMMENT_NEW_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                comments: [action.comment, ...state.comments],
+            }
+
         case COMMENTS_FETCHING:
             return {
                 ...state,
