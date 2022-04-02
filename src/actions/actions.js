@@ -126,9 +126,10 @@ export const userLoginAssign = (username, password) => {
     }
 };
 
-export const userProfileError = () => {
+export const userProfileError = (userId) => {
     return {
-        type: USER_PROFILE_ERROR
+        type: USER_PROFILE_ERROR,
+        userId,
     }
 };
 
@@ -159,7 +160,7 @@ export const userProfileFetch = (userId) => {
 
         return requests.get(`/users/${userId}`, true)
             .then(response => dispatch(userProfileReceived(userId, response)))
-            .catch(() => dispatch(userProfileError()));
+            .catch(() => dispatch(userProfileError(userId)));
     }
 };
 
@@ -185,6 +186,10 @@ export const addComment = (content, blogPostId) => {
         return requests.post('/comments', {content, post: `/api/blog_posts/${blogPostId}`})
             .then(response => dispatch(commentNewSuccess(response)))
             .catch(error => {
+                if (error.response?.statusCode === 401) {
+                    return dispatch(userLogout());
+                }
+
                 throw new SubmissionError(apiError(error.response))
             });
     }
