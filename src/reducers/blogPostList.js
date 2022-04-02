@@ -1,8 +1,16 @@
-import {BLOG_POST_LIST_ERROR, BLOG_POST_FETCH, BLOG_POST_LIST_RECEIVED} from "../actions/const";
+import {
+    BLOG_POST_LIST_ERROR,
+    BLOG_POST_FETCH,
+    BLOG_POST_LIST_RECEIVED,
+    BLOG_POST_LIST_SET_PAGE,
+} from "../actions/const";
+import {hydraPageCount} from "../helpers";
 
 export default (state = {
     posts: null,
     isFetching: false,
+    currentPage: null,
+    pageCount: null,
 }, action ) => {
     switch (action.type) {
         case BLOG_POST_FETCH:
@@ -10,10 +18,16 @@ export default (state = {
                 ...state,
                 isFetching: true,
             };
+        case BLOG_POST_LIST_SET_PAGE:
+            return {
+                ...state,
+                currentPage: action.page,
+            };
         case BLOG_POST_LIST_RECEIVED:
             return {
                 ...state,
                 posts: action.data["hydra:member"],
+                pageCount: hydraPageCount(action.data),
                 isFetching: false,
             };
         case BLOG_POST_LIST_ERROR:
@@ -22,9 +36,6 @@ export default (state = {
                 posts: null,
             };
         default:
-            return {
-                ...state,
-                isFetching: false,
-            };
+            return state;
     }
 };
