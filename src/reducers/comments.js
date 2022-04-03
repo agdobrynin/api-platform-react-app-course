@@ -12,7 +12,7 @@ export default (state = {
     comments: null,
     isFetching: false,
     currentPage: null,
-    pageCount: null,
+    isAllLoading: false,
 }, action) => {
     switch (action.type) {
         case COMMENT_NEW_SUCCESS:
@@ -33,11 +33,15 @@ export default (state = {
             }
 
         case COMMENTS_RECEIVED:
+            const comments = state.comments
+                ? [...state.comments, ...action.data["hydra:member"]]
+                : action.data["hydra:member"];
+
             return {
                 ...state,
                 isFetching: false,
-                comments: action.data["hydra:member"],
-                pageCount: hydraPageCount(action.data),
+                comments,
+                isAllLoading: action.data["hydra:totalItems"] <= comments.length,
             }
 
         case COMMENTS_ERROR:
@@ -46,10 +50,12 @@ export default (state = {
                 ...state,
                 isFetching: false,
                 comments: null,
+                currentPage: null,
+                pageCount: null,
+                isAllLoading: false,
             }
 
-        default: {
+        default:
             return state;
-        }
     }
 };
