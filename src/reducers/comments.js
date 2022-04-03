@@ -6,7 +6,7 @@ import {
     COMMENTS_RECEIVED,
     COMMENTS_UNLOAD
 } from "../actions/const";
-import {hydraPageCount} from "../helpers";
+import {hydraMember, hydraTotalItems} from "../helpers";
 
 export default (state = {
     comments: null,
@@ -34,14 +34,14 @@ export default (state = {
 
         case COMMENTS_RECEIVED:
             const comments = state.comments
-                ? [...state.comments, ...action.data["hydra:member"]]
-                : action.data["hydra:member"];
+                ? [...state.comments, ...hydraMember(action.data)]
+                : hydraMember(action.data);
 
             return {
                 ...state,
                 isFetching: false,
                 comments,
-                isAllLoading: action.data["hydra:totalItems"] <= comments.length,
+                isAllLoading: hydraTotalItems(action.data) <= comments.length,
             }
 
         case COMMENTS_ERROR:

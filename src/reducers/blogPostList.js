@@ -4,7 +4,7 @@ import {
     BLOG_POST_LIST_RECEIVED,
     BLOG_POST_LIST_SET_PAGE,
 } from "../actions/const";
-import {hydraPageCount} from "../helpers";
+import {hydraMember, hydraPageCount} from "../helpers";
 
 export default (state = {
     posts: null,
@@ -27,7 +27,7 @@ export default (state = {
         case BLOG_POST_LIST_RECEIVED:
             return {
                 ...state,
-                posts: action.data["hydra:member"],
+                posts: hydraMember(action.data),
                 pageCount: hydraPageCount(action.data),
                 isFetching: false,
             };

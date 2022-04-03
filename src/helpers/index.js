@@ -10,6 +10,10 @@ export const apiError = (errorResponse) =>  {
     );
 };
 
+export const hydraMember = (collection) => collection["hydra:member"] ? collection["hydra:member"] : [];
+
+export const hydraTotalItems = (collection) => collection["hydra:totalItems"] ? collection["hydra:totalItems"] : 0;
+
 export const hydraPageCount = (collection) => {
     const key = "hydra:view";
 
