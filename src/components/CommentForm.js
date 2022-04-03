@@ -13,31 +13,25 @@ const mapDispatchToProps = {
 };
 
 class CommentForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.isLoading = false;
-    }
-
     onSubmit({content}) {
         const { postId, addComment, reset } = this.props;
-        this.isLoading = true;
 
-        return addComment(content, postId).then(() => reset()).finally(() => this.isLoading = false);
+        return addComment(content, postId).then(() => reset());
     }
 
     render() {
-        const {handleSubmit} = this.props;
+        const {handleSubmit, submitting} = this.props;
 
         return (
-            <fieldset className="card shadow-sm mb-4" disabled={this.isLoading}>
+            <fieldset className="card shadow-sm mb-4" disabled={submitting}>
                 <form className="card-body" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field
-                        disabled={this.isLoading}
+                        disabled={submitting}
                         name="content"
                         label="Write your comment:"
                         type={fieldTextarea} component={renderField}/>
                     <button type="submit" className="btn btn-primary">
-                        {this.isLoading ? "Data sending. Wait..." : "Add comment"}
+                        {submitting ? "Data sending. Wait..." : "Add comment"}
                     </button>
                 </form>
             </fieldset>

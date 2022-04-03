@@ -3,6 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {renderField} from "../form";
 import {regUser} from "../actions/actions";
+import {Loader} from "./Loader";
 
 const mapDispatchToProps = {
     regUser,
@@ -11,13 +12,16 @@ const mapDispatchToProps = {
 class RegForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {termsAccepted: false};
+        this.state = {
+            termsAccepted: false,
+        };
     }
 
     onSubmit(values) {
         return this.props.regUser(...Object.values(values))
             .then(() => {
                 this.props.reset();
+                this.props.history.push("/");
             });
     }
 
@@ -26,7 +30,7 @@ class RegForm extends React.Component {
     }
 
     render() {
-        const {handleSubmit} = this.props;
+        const {handleSubmit, submitting} = this.props;
 
         return (
             <form className="mt-4" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -42,9 +46,10 @@ class RegForm extends React.Component {
                                value={false}/>
                         I agree to the terms and conditions</label>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block" disabled={!this.state.termsAccepted}>
+                {submitting && <Loader></Loader>}
+                {!submitting && <button type="submit" className="btn btn-primary btn-block" disabled={!this.state.termsAccepted}>
                     Register
-                </button>
+                </button>}
             </form>
         );
     }
