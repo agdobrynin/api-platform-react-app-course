@@ -8,6 +8,7 @@ import {storage} from "../storage";
 import {requests} from "../agent";
 import {connect} from "react-redux";
 import {userLogout, userProfileFetch, userSetId} from "../actions/actions";
+import RegFom from "./RegFom";
 
 const mapStateToProps = state => ({
     ...state.auth,
@@ -56,6 +57,7 @@ class App extends React.Component {
                 <Switch>
                     <Route path="/login" component={LoginForm}/>
                     <Route path="/blog-post/:id" component={BlogPostContainer}/>
+                    <Route path="/reg" component={RegFom}/>
                     <Route path="/:page?" component={BlogPostListContainer}/>
                 </Switch>
             </div>

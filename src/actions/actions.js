@@ -127,13 +127,22 @@ export const userLoginAssign = (username, password) => {
     return (dispatch) => {
         dispatch(userLoginFetching());
 
-        return requests.post('/login_check', {username, password}, false)
+        return requests.post("/login_check", {username, password}, false)
             .then(response => dispatch(userLoginSuccess(response.token, response.id)))
             .catch(error => {
                 dispatch(userLoginError());
                 const {code, message = error.message} = error.response?.body || {code: 0, message: error.message};
                 const _error = `${code}: ${message}`;
                 throw new SubmissionError({_error})
+            });
+    }
+};
+
+export const regUser = (login, password, passwordRepeated, email, name) => {
+    return (dispatch) => {
+        return requests.post("/users", {login, password, passwordRepeated, email, name}, false)
+            .catch(error => {
+                throw new SubmissionError(apiError(error.response));
             });
     }
 };

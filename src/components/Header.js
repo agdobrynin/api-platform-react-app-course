@@ -22,6 +22,13 @@ export default class Header extends React.Component {
         );
     }
 
+    regOrSignIn() {
+        return (<div className="container"><div className="row align-items-center">
+            <div className="col-auto mr-auto"><Link to="/login">Sign in</Link></div>
+            <div className="col-auto"><Link to="/reg">Register</Link></div>
+        </div></div>);
+    }
+
     render() {
         const { isAuth } = this.props;
 
@@ -30,9 +37,7 @@ export default class Header extends React.Component {
                 <Link to="/" className="navbar-brand">React blog</Link>
                 <ul className="navbar-nav mr-auto"></ul>
                 <span className="navbar-text">
-                    {isAuth
-                        ? this.renderUser()
-                        : <Link to="/login">Sign in</Link>}
+                    {isAuth ? this.renderUser() : this.regOrSignIn()}
                 </span>
             </nav>
         );
