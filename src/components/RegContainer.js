@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import RegFom from "./RegFom";
 import RegConfirmForm from "./RegConfirmForm";
 import {userRegisterComplete} from "../actions/user_registration";
+import {Link} from "react-router-dom";
 
 const mapStateToProps = state => ({
     ...state.registration
@@ -35,7 +36,7 @@ class RegContainer extends React.Component {
         return (
             <div>
                 <h2>🎉 Your account activated!</h2>
-                <p>You can <a href="/login"><strong>Sign in</strong></a> to blog service now 🚀</p>
+                <p>You can <Link to="/login">Sign in</Link> to blog service now 🚀</p>
             </div>
         )
     }
