@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Loader} from "./Loader";
+import {canWritePost} from "../helpers";
 
 export default class Header extends React.Component {
     renderUser() {
@@ -30,12 +31,15 @@ export default class Header extends React.Component {
     }
 
     render() {
-        const { isAuth } = this.props;
+        const { isAuth, userProfile } = this.props;
+        const canWrite = canWritePost(userProfile);
 
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to="/" className="navbar-brand">React blog</Link>
-                <ul className="navbar-nav mr-auto"></ul>
+                <ul className="navbar-nav mr-auto">
+                    {canWrite && <li className="nav-item nav-link"><Link to="/blog-post-new">Add new post</Link></li>}
+                </ul>
                 <span className="navbar-text">
                     {isAuth ? this.renderUser() : this.regOrSignIn()}
                 </span>

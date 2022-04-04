@@ -25,3 +25,11 @@ export const hydraPageCount = (collection) => {
         collection[key]["hydra:last"].match(/page=(\d+)/)[1]
     );
 };
+
+const canWritePostRoles = ["ROLE_USER", "ROLE_ADMIN"];
+
+export const canWritePost = (userProfile) => {
+    const { roles = [] } = userProfile || {};
+
+    return Array.isArray(roles) ? Boolean(roles.find(role => canWritePostRoles.indexOf(role) >= 0)) : false;
+}
