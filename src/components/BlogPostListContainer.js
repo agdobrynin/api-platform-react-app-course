@@ -1,9 +1,9 @@
 import React from "react";
 import BlogPostList from "./BlogPostList";
-import {blogPostListFetch, blogPostListSetPage} from "../actions/actions";
 import {connect} from "react-redux";
 import {Loader} from "./Loader";
 import {Paginator} from "./Paginator";
+import {blogPostListFetch, blogPostListSetPage} from "../actions/blog_post";
 
 
 const mapStateToProps = state => ({...state.blogPostList});
@@ -40,7 +40,7 @@ class BlogPostListContainer extends React.Component {
 
     render() {
         const {posts, isFetching, pageCount, currentPage} = this.props;
-
+console.log(currentPage, pageCount, isFetching);
         if (isFetching) {
             return (<Loader/>);
         }
@@ -48,10 +48,7 @@ class BlogPostListContainer extends React.Component {
         return (<div>
             <BlogPostList posts={posts}/>
             <div className="d-flex justify-content-center">
-                <Paginator
-                    setPage={this.changePage.bind(this)}
-                    currentPage={currentPage}
-                    pageCount={pageCount}/>
+                <Paginator setPage={this.changePage.bind(this)} currentPage={currentPage} pageCount={pageCount}/>
             </div>
         </div>);
     }

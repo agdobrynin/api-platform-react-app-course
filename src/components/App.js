@@ -7,8 +7,9 @@ import BlogPostContainer from "./BlogPostContainer";
 import {storage} from "../storage";
 import {requests} from "../agent";
 import {connect} from "react-redux";
-import {userLogout, userProfileFetch, userSetId} from "../actions/actions";
 import RegFom from "./RegFom";
+import {userProfileFetch, userSetId} from "../actions/user_profile";
+import {userLogout} from "../actions/user_login";
 
 const mapStateToProps = state => ({
     ...state.auth,

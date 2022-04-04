@@ -1,7 +1,7 @@
 import {USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR} from "./actions/const";
 import {requests} from "./agent";
 import {storage} from "./storage";
-import {userLogout} from "./actions/actions";
+import {userLogout} from "./actions/user_login";
 
 export const tokenMiddleware = store => next => action => {
     switch (action.type) {

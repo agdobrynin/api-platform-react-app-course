@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {Field, reduxForm} from "redux-form";
 import {fieldTextarea, renderField} from "../form";
-import {addComment} from "../actions/actions";
+import {addComment} from "../actions/comment_add";
 
 const mapStateToProps = state => ({
     ...state.comment,

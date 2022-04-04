@@ -22,7 +22,6 @@ export default (state = {
             return {
                 ...state,
                 currentPage: action.page,
-                isFetching: false,
             };
         case BLOG_POST_LIST_RECEIVED:
             return {

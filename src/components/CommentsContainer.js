@@ -1,11 +1,11 @@
 import React from "react";
 
-import {commentsFetch, commentsSetPage, commentsUnload} from "../actions/actions";
 import {connect} from "react-redux";
 import {Loader} from "./Loader";
 import Comments from "./Comments";
 import {Message} from "./Message";
 import {CommentsLoader} from "./CommentsLoader";
+import {commentsFetch, commentsSetPage, commentsUnload} from "../actions/comments";
 
 const mapStateToProps = state => ({
     ...state.comments

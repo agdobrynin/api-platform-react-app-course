@@ -2,8 +2,8 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {renderField} from "../form";
-import {regUser} from "../actions/actions";
 import {Loader} from "./Loader";
+import {regUser} from "../actions/user_registration";
 
 const mapDispatchToProps = {
     regUser,

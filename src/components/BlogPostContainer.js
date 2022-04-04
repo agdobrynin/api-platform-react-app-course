@@ -1,10 +1,10 @@
 import React from "react";
-import {blogPostFetch, blogPostUnload} from "../actions/actions";
 import {connect} from "react-redux";
 import BlogPost from "./BlogPost";
 import {Loader} from "./Loader";
 import CommentsContainer from "./CommentsContainer";
 import CommentForm from "./CommentForm";
+import {blogPostFetch, blogPostUnload} from "../actions/blog_post";
 
 const mapStateToProps = state => ({
     ...state.blogPost,

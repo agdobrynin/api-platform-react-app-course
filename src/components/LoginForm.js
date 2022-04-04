@@ -1,9 +1,10 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {renderField} from "../form";
-import {userLoginAssign, userProfileFetch} from "../actions/actions";
 import {connect} from "react-redux";
 import {Message} from "./Message";
+import {userProfileFetch} from "../actions/user_profile";
+import {userLoginAssign} from "../actions/user_login";
 
 const mapStateToProps = state => ({
     ...state.auth,
