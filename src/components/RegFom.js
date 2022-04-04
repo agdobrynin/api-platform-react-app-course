@@ -18,11 +18,7 @@ class RegForm extends React.Component {
     }
 
     onSubmit(values) {
-        return this.props.regUser(...Object.values(values))
-            .then(() => {
-                this.props.reset();
-                this.props.history.push("/");
-            });
+        return this.props.regUser(...Object.values(values)).then(() =>  this.props.reset());
     }
 
     onTermsAcceptedClick() {
