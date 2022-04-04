@@ -3,6 +3,7 @@ import {
     BLOG_POST_LIST_ERROR,
     BLOG_POST_LIST_RECEIVED,
     BLOG_POST_LIST_SET_PAGE,
+    BLOG_POST_LIST_UNLOAD,
     BLOG_POST_RECEIVED,
     BLOG_POST_UNLOAD
 } from "../const";
@@ -29,6 +30,9 @@ export const blogPostUnload = () => ({
 export const blogPostError = (error) => ({
     type: BLOG_POST_LIST_ERROR,
     error,
+});
+export const blogPostListUnload = () => ({
+    type: BLOG_POST_LIST_UNLOAD,
 });
 export const blogPostListFetch = (page = 1) => {
     return (dispatch) => {

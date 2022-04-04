@@ -3,6 +3,7 @@ import {
     BLOG_POST_FETCH,
     BLOG_POST_LIST_RECEIVED,
     BLOG_POST_LIST_SET_PAGE,
+    BLOG_POST_LIST_UNLOAD,
 } from "../actions/const";
 import {hydraMember, hydraPageCount} from "../helpers";
 
@@ -30,10 +31,14 @@ export default (state = {
                 pageCount: hydraPageCount(action.data),
                 isFetching: false,
             };
+        case BLOG_POST_LIST_UNLOAD:
         case BLOG_POST_LIST_ERROR:
-            return{
+            return {
+                ...state,
                 isFetching: false,
                 posts: null,
+                currentPage: null,
+                pageCount: null,
             };
         default:
             return state;

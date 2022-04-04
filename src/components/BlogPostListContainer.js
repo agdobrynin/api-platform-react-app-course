@@ -3,12 +3,12 @@ import BlogPostList from "./BlogPostList";
 import {connect} from "react-redux";
 import {Loader} from "./Loader";
 import {Paginator} from "./Paginator";
-import {blogPostListFetch, blogPostListSetPage} from "../actions/blog_post";
+import {blogPostListFetch, blogPostListSetPage, blogPostListUnload} from "../actions/blog_post";
 
 
 const mapStateToProps = state => ({...state.blogPostList});
 
-const mapDispatchToProps = {blogPostListFetch, blogPostListSetPage};
+const mapDispatchToProps = {blogPostListFetch, blogPostListSetPage, blogPostListUnload};
 
 class BlogPostListContainer extends React.Component {
     getPageFromQueryParam() {
@@ -31,6 +31,10 @@ class BlogPostListContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.blogPostListUnload();
+    }
+
 
     changePage(page) {
         const {history, blogPostListSetPage} = this.props;
@@ -40,7 +44,7 @@ class BlogPostListContainer extends React.Component {
 
     render() {
         const {posts, isFetching, pageCount, currentPage} = this.props;
-console.log(currentPage, pageCount, isFetching);
+
         if (isFetching) {
             return (<Loader/>);
         }
