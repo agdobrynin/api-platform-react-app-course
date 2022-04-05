@@ -1,0 +1,7 @@
+.image-item {
+    max-height: 230px;
+}
+
+.image-item img {
+    max-height: 100%;
+}

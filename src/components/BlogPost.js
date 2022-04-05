@@ -3,6 +3,8 @@ import timeAgo from "timeago.js"
 import {Message} from "./Message";
 import {API_HOST} from "../agent";
 
+import "./BlogPost.css";
+
 export default class BlogPost extends React.Component {
     imageGallery () {
         const {post: {mediaObjects = []}} = this.props;
@@ -13,7 +15,7 @@ export default class BlogPost extends React.Component {
                         const url = `${API_HOST}${image.contentUrl}`;
 
                         return (
-                            <div className="col-sm-6 col-md-4 mb-3">
+                            <div className="col-sm-6 col-md-4 mb-3 image-item justify-content-center text-center">
                             <img src={url} className="fluid img-thumbnail ml-1"/>
                             </div>
                             )
