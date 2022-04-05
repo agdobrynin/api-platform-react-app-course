@@ -1,7 +1,7 @@
 import {COMMENT_NEW_SUCCESS} from "../const";
 import {requests} from "../../agent";
 import {SubmissionError} from "redux-form";
-import {apiError} from "../../helpers";
+import {apiViolation} from "../../helpers";
 import {userLogout} from "../user_login";
 
 export const commentNewSuccess = (comment) => {
@@ -19,7 +19,7 @@ export const addComment = (content, blogPostId) => {
                     return dispatch(userLogout());
                 }
 
-                throw new SubmissionError(apiError(error.response))
+                throw new SubmissionError(apiViolation(error.response))
             });
     }
 };

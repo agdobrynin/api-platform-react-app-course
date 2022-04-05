@@ -1,4 +1,4 @@
-export const apiError = (errorResponse) =>  {
+export const apiViolation = (errorResponse) =>  {
     const violation = errorResponse?.body?.violations || [];
 
     return violation.reduce(
@@ -9,6 +9,16 @@ export const apiError = (errorResponse) =>  {
         {}
     );
 };
+
+export const apiError = (errorResponse) => {
+    const hasError = errorResponse?.body["@type"] === "hydra:Error";
+
+    if (null === hasError) {
+        return null;
+    }
+
+    return errorResponse?.body["hydra:description"] || null;
+}
 
 export const hydraMember = (collection) => collection["hydra:member"] ? collection["hydra:member"] : [];
 

@@ -5,7 +5,7 @@ export const fieldTextarea = "TEXTAREA";
 const isTextarea = (typeOfField) => typeof typeOfField === "string" && typeOfField.toUpperCase() === fieldTextarea;
 const isLabel = (label) => typeof label === "string" && label.length;
 
-export const renderField = ({ input, label, type, autoComplete = "off", meta: {error} }) => {
+export const renderField = ({ input, label, type = "text", autoComplete = "off", meta: {error} }) => {
     const classes = classNames(
         'form-control',
         {

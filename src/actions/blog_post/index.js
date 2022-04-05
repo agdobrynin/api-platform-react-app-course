@@ -8,6 +8,9 @@ import {
     BLOG_POST_UNLOAD
 } from "../const";
 import {requests} from "../../agent";
+import {SubmissionError} from "redux-form";
+import {apiError, apiViolation} from "../../helpers";
+import {userLogout} from "../user_login";
 
 export const blogPostFetching = () => ({
     type: BLOG_POST_FETCH,
@@ -51,4 +54,23 @@ export const blogPostFetch = (id) => {
             .then(response => dispatch(blogPostReceived(response)))
             .catch(error => dispatch(blogPostError(error)));
     }
+};
+export const blogPostAdd = (title, slug, content) => {
+    return (dispatch) => {
+        return requests.post("/blog_posts", {title, slug, content})
+            .catch(error => {
+                const statusCode = error.response?.statusCode || 500;
+                const messageDefault = error.message;
+
+                if (statusCode === 401) {
+                    return dispatch(userLogout());
+                } else if (statusCode === 403) {
+                    throw new SubmissionError({ _error: "You don't have right to publishing post"});
+                } else if (statusCode === 422) {
+                    throw new SubmissionError(apiViolation(error.response));
+                }
+
+                throw new SubmissionError({ _error: apiError(error.response) || messageDefault});
+            })
+    };
 };
