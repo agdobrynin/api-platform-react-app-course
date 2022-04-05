@@ -2,7 +2,8 @@ import superagentPromise from "superagent-promise";
 import _sa from "superagent";
 
 const superagent = superagentPromise(_sa, global.Promise);
-const API_ROOT = "http://localhost:8000/api";
+export const API_HOST = "http://localhost:8000";
+export const API_ROOT = `${API_HOST}/api`;
 const responseBody = response => response.body;
 
 let token = null;
