@@ -20,5 +20,7 @@ export const requests = {
         .get(`${API_ROOT}${url}`).use(tokenPlugin(secured)).then(responseBody),
     post: (url, body = null, secured = true) => superagent
         .post(`${API_ROOT}${url}`, body).use(tokenPlugin(secured)).then(responseBody),
+    upload: (url, file, secured = true) => superagent
+        .post(`${API_ROOT}${url}`).attach("file", file).use(tokenPlugin(secured)).then(responseBody),
     setToken: (newJwtToken) => token = newJwtToken,
 };
