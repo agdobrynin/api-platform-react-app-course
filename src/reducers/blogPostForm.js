@@ -1,4 +1,5 @@
 import {IMAGE_UPLOAD_ERROR, IMAGE_UPLOADED, IMAGE_UPLOADING} from "../actions/media";
+import {BLOG_POST_UNLOAD} from "../actions/const";
 
 export default (state = {
     images: null,
@@ -20,6 +21,11 @@ export default (state = {
             return {
                 ...state,
                 isImageUploading: false,
+            };
+        case BLOG_POST_UNLOAD:
+            return {
+                isImageUploading: false,
+                images: null,
             };
         default:
             return state;

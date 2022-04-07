@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {canWritePost} from "../helpers";
 import {Message} from "./Message";
 import {fieldTextarea, renderField} from "../form";
-import {blogPostAdd} from "../actions/blog_post";
+import {blogPostAdd, blogPostUnload} from "../actions/blog_post";
 import ImageUpload from "./ImageUpload";
 import ImageGallery from "./ImageGallery";
 import {Loader} from "./Loader";
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
     ...state.blogPostForm,
 });
 
-const mapDispatchToProps = {blogPostAdd};
+const mapDispatchToProps = {blogPostAdd, blogPostUnload};
 
 class BlogPostForm extends React.Component {
 
@@ -25,6 +25,10 @@ class BlogPostForm extends React.Component {
             reset();
             history.push("/");
         });
+    }
+
+    componentWillUnmount() {
+        this.props.blogPostUnload();
     }
 
     render() {
