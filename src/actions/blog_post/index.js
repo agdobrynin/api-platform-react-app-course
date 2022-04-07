@@ -55,9 +55,15 @@ export const blogPostFetch = (id) => {
             .catch(error => dispatch(blogPostError(error)));
     }
 };
-export const blogPostAdd = (title, slug, content) => {
+export const blogPostAdd = (title, slug, content, images) => {
     return (dispatch) => {
-        return requests.post("/blog_posts", {title, slug, content})
+        const mediaObjects = [];
+
+        if (Array.isArray(images)) {
+            images.forEach(image => mediaObjects.push(image["@id"]));
+        }
+
+        return requests.post("/blog_posts", {title, slug, content, mediaObjects})
             .catch(error => {
                 const statusCode = error.response?.statusCode || 500;
                 const messageDefault = error.message;

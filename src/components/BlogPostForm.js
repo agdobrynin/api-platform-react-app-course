@@ -19,9 +19,9 @@ const mapDispatchToProps = {blogPostAdd, blogPostUnload};
 class BlogPostForm extends React.Component {
 
     onSubmit({title, slug, content}) {
-        const {blogPostAdd, reset, history} = this.props;
+        const {blogPostAdd, reset, history, images} = this.props;
 
-        return blogPostAdd(title, slug, content).then(() => {
+        return blogPostAdd(title, slug, content, images).then(() => {
             reset();
             history.push("/");
         });
