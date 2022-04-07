@@ -4,8 +4,14 @@ import {Loader} from "./Loader";
 import {canWritePost} from "../helpers";
 
 export default class Header extends React.Component {
+    logout() {
+        const { userLogout, history } = this.props;
+        userLogout();
+        history.push("/");
+    }
+
     renderUser() {
-        const { userProfile, userLogout } = this.props;
+        const { userProfile } = this.props;
 
         if (null === userProfile) {
             return (<Loader />);
@@ -16,7 +22,7 @@ export default class Header extends React.Component {
                 <div className="row align-items-center">
                     <div className="col-auto mr-auto">Hello <b>{userProfile.name}</b></div>
                     <div className="col-auto">
-                        <button className="btn btn-outline-success" type="button" onClick={userLogout}>Logout</button>
+                        <button className="btn btn-outline-success" type="button" onClick={this.logout.bind(this)}>Logout</button>
                     </div>
                 </div>
             </div>

@@ -51,11 +51,11 @@ class App extends React.Component {
     }
 
     render() {
-        const { isAuth, userProfile, userLogout } = this.props;
+        const { isAuth, userProfile, userLogout, history } = this.props;
 
         return (
             <div>
-                <Header isAuth={isAuth} userProfile={userProfile} userLogout={userLogout}/>
+                <Header isAuth={isAuth} userProfile={userProfile} userLogout={userLogout} history={history}/>
                 <Switch>
                     <Route path="/login" component={LoginForm}/>
                     <Route path="/blog-post-new" component={BlogPostForm} />
