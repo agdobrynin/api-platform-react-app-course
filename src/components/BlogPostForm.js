@@ -49,9 +49,7 @@ class BlogPostForm extends React.Component {
                     <Field name="title" label="Title of post:" component={renderField}/>
                     <Field name="slug" label="Input slug of post:" component={renderField}/>
                     <Field name="content" type={fieldTextarea} label="Content:" component={renderField}/>
-                    <div className="form-group">
-                        <ImageUpload/>
-                    </div>
+                    {!isImageUploading && (<div className="form-group"><ImageUpload/></div>)}
                     {isImageUploading && <Loader message="Uploading image"/>}
                     {images && <ImageGallery images={images}/>}
                     <button type="submit" disabled={isImageUploading} className="btn btn-primary btn-block">Save
