@@ -42,10 +42,10 @@ export const imageDeleteRequest = () => {
     }
 }
 
-export const imageDeleteSuccess = (image) => {
+export const imageDeleteSuccess = (ImageDto) => {
     return {
         type: IMAGE_DELETE_SUCCESS,
-        image
+        ImageDto
     }
 }
 
@@ -56,11 +56,15 @@ export const imageDeleteError = (data) => {
     }
 }
 
-export const imageDelete = (image) => {
+/**
+ *
+ * @param {ImageDto} dto
+ */
+export const imageDelete = (dto) => {
     return (dispatch) => {
         dispatch(imageDeleteRequest());
-        return requests.delete(`${image["@id"]}`, true, true)
-            .then(() => dispatch(imageDeleteSuccess(image)))
+        return requests.delete(`${dto.resourceId}`, true, true)
+            .then(() => dispatch(imageDeleteSuccess(dto)))
             .catch(error => dispatch(imageDeleteError(error)))
     }
 }

@@ -59,15 +59,19 @@ class BlogPostForm extends React.Component {
                     <Field name="title" label="Title of post:" component={renderField}/>
                     <Field name="slug" label="Input slug of post:" component={renderField}/>
                     <Field name="content" type={fieldTextarea} label="Content:" component={renderField}/>
+
                     {imageRequestError && <Message message={imageRequestError.message} messageType="alert-danger"/>}
+
                     {!isImageRequestInProgress && (<div className="form-group"><ImageUpload/></div>)}
                     {isImageRequestInProgress && <Loader message="Uploading image"/>}
+
                     {images &&
                         <ImageGallery
                             images={images}
                             deleteHandler={imageDelete}
                             isImageRequestDelete={isImageRequestDelete}/>
                     }
+
                     <button type="submit"
                             disabled={isImageRequestInProgress || isImageRequestDelete}
                             className="btn btn-primary btn-block">

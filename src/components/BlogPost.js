@@ -15,14 +15,12 @@ export default class BlogPost extends React.Component {
             );
         }
 
-        const images = post?.mediaObjects || [];
-
         return (<div className="card mb-3 mt-3 shadow-sm">
             <div className="card-body">
                 <h2>{post.title}</h2>
                 <p className="text-muted">{timeAgo().format(post.createdAt)} by {post.author.name}</p>
                 <p className="card-text">{post.content}</p>
-                {images.length > 0 && <ImageGallery images={images}/>}
+                {post.images.length > 0 && <ImageGallery images={post.images}/>}
             </div>
         </div>);
     }

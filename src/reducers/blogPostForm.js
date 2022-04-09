@@ -7,8 +7,10 @@ import {
     IMAGE_UPLOADING
 } from "../actions/media";
 import {BLOG_POST_UNLOAD} from "../actions/const";
+import ImageDto from "../Dto/ImageDto";
 
 export default (state = {
+    /** @type {ImageDto[]|null} */
     images: null,
     isImageRequestInProgress: false,
     isImageRequestDelete: false,
@@ -22,10 +24,12 @@ export default (state = {
                 imageRequestError: null,
             };
         case IMAGE_UPLOADED:
+            const imageDto = new ImageDto(action.data);
+
             return {
                 ...state,
                 isImageRequestInProgress: false,
-                images: state.images === null ? [action.data] : state.images.concat(action.data),
+                images: state.images === null ? [imageDto] : state.images.concat(imageDto),
                 imageRequestError: null,
             };
         case IMAGE_UPLOAD_ERROR:
@@ -45,7 +49,7 @@ export default (state = {
         case IMAGE_DELETE_SUCCESS:
             return {
                 ...state,
-                images: state.images.filter(image => image["@id"] !== action.image["@id"]),
+                images: state.images.filter(ImageDto => ImageDto.resourceId !== action.ImageDto.resourceId),
                 imageRequestError: null,
                 isImageRequestDelete: false,
             };

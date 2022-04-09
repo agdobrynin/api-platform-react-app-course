@@ -55,13 +55,17 @@ export const blogPostFetch = (id) => {
             .catch(error => dispatch(blogPostError(error)));
     }
 };
+/**
+ *
+ * @param {string} title
+ * @param {string} slug
+ * @param {string} content
+ * @param {ImageDto[]} images
+ */
 export const blogPostAdd = (title, slug, content, images) => {
     return (dispatch) => {
-        const mediaObjects = [];
-
-        if (Array.isArray(images)) {
-            images.forEach(image => mediaObjects.push(image["@id"]));
-        }
+        const mediaObjects = images
+            ?.reduce((acc, image) => { acc.push(image.resourceId); return acc;}, []) || []
 
         return requests.post("/blog_posts", {title, slug, content, mediaObjects})
             .catch(error => {

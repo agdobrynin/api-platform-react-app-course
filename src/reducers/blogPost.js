@@ -1,4 +1,5 @@
 import {BLOG_POST_ERROR, BLOG_POST_FETCH, BLOG_POST_RECEIVED, BLOG_POST_UNLOAD} from "../actions/const";
+import ImageDto from "../Dto/ImageDto";
 
 export default (state = {
     post: null,
@@ -11,6 +12,10 @@ export default (state = {
                 isFetching: true,
             };
         case BLOG_POST_RECEIVED:
+            const images = action.data?.mediaObjects
+                .reduce((acc, image) => { acc.push(new ImageDto(image)); return acc }, []) || [];
+            action.data.images = images;
+
             return {
                 ...state,
                 post: action.data,
