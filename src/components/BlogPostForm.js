@@ -8,13 +8,14 @@ import {blogPostAdd, blogPostUnload} from "../actions/blog_post";
 import ImageUpload from "./ImageUpload";
 import ImageGallery from "./ImageGallery";
 import {Loader} from "./Loader";
+import {imageDelete} from "../actions/media";
 
 const mapStateToProps = state => ({
     userProfile: state.auth.userProfile,
     ...state.blogPostForm,
 });
 
-const mapDispatchToProps = {blogPostAdd, blogPostUnload};
+const mapDispatchToProps = {blogPostAdd, blogPostUnload, imageDelete};
 
 class BlogPostForm extends React.Component {
 
@@ -38,7 +39,7 @@ class BlogPostForm extends React.Component {
             return <Message title="Permission deny" message="You can't write post."/>
         }
 
-        const {handleSubmit, submitting, error, images, isImageUploading} = this.props;
+        const {handleSubmit, submitting, error, images, isImageRequestInProgress, imageDelete, imageRequestError} = this.props;
 
         return (
             <fieldset className="card shadow-sm pt-4 pb-4 mt-4 mb-4" disabled={submitting}>
@@ -49,10 +50,11 @@ class BlogPostForm extends React.Component {
                     <Field name="title" label="Title of post:" component={renderField}/>
                     <Field name="slug" label="Input slug of post:" component={renderField}/>
                     <Field name="content" type={fieldTextarea} label="Content:" component={renderField}/>
-                    {!isImageUploading && (<div className="form-group"><ImageUpload/></div>)}
-                    {isImageUploading && <Loader message="Uploading image"/>}
-                    {images && <ImageGallery images={images}/>}
-                    <button type="submit" disabled={isImageUploading} className="btn btn-primary btn-block">Save
+                    {imageRequestError && <Message message={imageRequestError.message} messageType="alert-danger"/>}
+                    {!isImageRequestInProgress && (<div className="form-group"><ImageUpload/></div>)}
+                    {isImageRequestInProgress && <Loader message="Uploading image"/>}
+                    {images && <ImageGallery images={images} deleteHandler={imageDelete} isImageRequestInProgress={isImageRequestInProgress}/>}
+                    <button type="submit" disabled={isImageRequestInProgress} className="btn btn-primary btn-block">Save
                     </button>
                 </form>
             </fieldset>

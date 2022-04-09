@@ -22,5 +22,10 @@ export const requests = {
         .post(`${API_ROOT}${url}`, body).use(tokenPlugin(secured)).then(responseBody),
     upload: (url, file, secured = true) => superagent
         .post(`${API_ROOT}${url}`).attach("file", file).use(tokenPlugin(secured)).then(responseBody),
+    delete: (url, secured = true, isAbsoluteUrl = false) => {
+        const requestUrl = isAbsoluteUrl ? `${API_HOST}${url}` : `${API_ROOT}${url}`;
+
+        return superagent.del(requestUrl).use(tokenPlugin(secured)).then(responseBody)
+    },
     setToken: (newJwtToken) => token = newJwtToken,
 };
