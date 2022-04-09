@@ -11,6 +11,7 @@ import {BLOG_POST_UNLOAD} from "../actions/const";
 export default (state = {
     images: null,
     isImageRequestInProgress: false,
+    isImageRequestDelete: false,
     imageRequestError: null,
 }, action) => {
     switch (action.type) {
@@ -33,19 +34,20 @@ export default (state = {
                 ...state,
                 isImageRequestInProgress: false,
                 imageRequestError: action.data,
+                isImageRequestDelete: false,
             };
         case IMAGE_DELETE_REQUEST:
             return {
                 ...state,
-                isImageRequestInProgress: true,
                 imageRequestError: null,
+                isImageRequestDelete: true,
             };
         case IMAGE_DELETE_SUCCESS:
             return {
                 ...state,
                 images: state.images.filter(image => image["@id"] !== action.image["@id"]),
-                isImageRequestInProgress: false,
                 imageRequestError: null,
+                isImageRequestDelete: false,
             };
         case BLOG_POST_UNLOAD:
             return {

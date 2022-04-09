@@ -8,7 +8,7 @@ export default class ImageGallery extends React.Component {
     }
 
     render() {
-        const {images, deleteHandler = null, isImageRequestInProgress} = this.props;
+        const {images, deleteHandler = null, isImageRequestDelete} = this.props;
         const hasDeleteHandler = typeof deleteHandler === "function";
 
         return(
@@ -21,7 +21,7 @@ export default class ImageGallery extends React.Component {
                         <div key={key} className="col-sm-6 col-md-4 mb-3 image-item justify-content-center text-center">
                             {hasDeleteHandler
                                 && <button
-                                    disabled={isImageRequestInProgress}
+                                    disabled={isImageRequestDelete}
                                     type="button"
                                     onClick={this.onImageDelete(image)}
                                     className="btn btn-sm btn-block btn-danger mb-2">Delete it</button>

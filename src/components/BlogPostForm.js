@@ -39,7 +39,16 @@ class BlogPostForm extends React.Component {
             return <Message title="Permission deny" message="You can't write post."/>
         }
 
-        const {handleSubmit, submitting, error, images, isImageRequestInProgress, imageDelete, imageRequestError} = this.props;
+        const {
+            handleSubmit,
+            submitting,
+            error,
+            images,
+            isImageRequestInProgress,
+            imageDelete,
+            imageRequestError,
+            isImageRequestDelete
+        } = this.props;
 
         return (
             <fieldset className="card shadow-sm pt-4 pb-4 mt-4 mb-4" disabled={submitting}>
@@ -53,8 +62,16 @@ class BlogPostForm extends React.Component {
                     {imageRequestError && <Message message={imageRequestError.message} messageType="alert-danger"/>}
                     {!isImageRequestInProgress && (<div className="form-group"><ImageUpload/></div>)}
                     {isImageRequestInProgress && <Loader message="Uploading image"/>}
-                    {images && <ImageGallery images={images} deleteHandler={imageDelete} isImageRequestInProgress={isImageRequestInProgress}/>}
-                    <button type="submit" disabled={isImageRequestInProgress} className="btn btn-primary btn-block">Save
+                    {images &&
+                        <ImageGallery
+                            images={images}
+                            deleteHandler={imageDelete}
+                            isImageRequestDelete={isImageRequestDelete}/>
+                    }
+                    <button type="submit"
+                            disabled={isImageRequestInProgress || isImageRequestDelete}
+                            className="btn btn-primary btn-block">
+                        Save
                     </button>
                 </form>
             </fieldset>
